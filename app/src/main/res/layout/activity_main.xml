@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Lipi"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="32sp"
             android:layout_marginStart="10dp"
