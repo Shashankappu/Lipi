@@ -10,7 +10,7 @@
         android:id="@+id/titlelayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#6C26B1"
+        android:background="@color/purple"
         android:layout_gravity="top"
         android:orientation="horizontal">
         <TextView
@@ -44,16 +44,15 @@
 
         <Button
             android:id="@+id/know_tv"
-            android:background="#469C9F9D"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
-            android:paddingTop="6dp"
             android:text="Know what is it?"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:background="@drawable/custombutton"
             android:textSize="30sp" />
     </LinearLayout>
     <LinearLayout
@@ -72,10 +71,10 @@
             android:layout_weight="1"
             android:layout_margin="4dp"
             android:text="Gallery"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:fontFamily="sans-serif"
-            android:backgroundTint="#46C46FEF"/>
+            android:background="@drawable/custombutton"/>
         <Button
             android:id="@+id/camera_btn"
             android:layout_width="0dp"
@@ -84,9 +83,9 @@
             android:layout_margin="4dp"
             android:text="Camera"
             android:fontFamily="sans-serif"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30sp"
-            android:backgroundTint="#46C46FEF"/>
+            android:background="@drawable/custombutton" />
 
     </LinearLayout>
 
