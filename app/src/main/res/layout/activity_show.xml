@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ShowActivity">
     <RelativeLayout
         android:id="@+id/titlelayout"
@@ -21,14 +22,33 @@
             android:layout_marginStart="10dp"
             />
 
-        <Button
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="En"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:padding="2dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="24sp" />-->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="En"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:padding="2dp"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:layout_marginEnd="4dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/lang_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none"
+                android:text="En"
+                android:padding="2dp"
+                android:textColor="@color/black" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </RelativeLayout>
 
@@ -50,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/loremipsum"
-            android:textSize="26sp"
-            android:layout_margin="5dp"
+            android:textSize="22sp"
+            android:layout_margin="12dp"
             android:textColor="@color/statusbarpurple"/>
     </ScrollView>
 </RelativeLayout>
