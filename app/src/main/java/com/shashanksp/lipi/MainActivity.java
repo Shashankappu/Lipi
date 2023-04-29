@@ -55,7 +55,13 @@ public class MainActivity extends AppCompatActivity {
                 askCameraPermission();
             }
         });
-
+        knowtv_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,ShowActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
     private void askCameraPermission() {
