@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class ShowActivity extends AppCompatActivity {
     AutoCompleteTextView lang_tv;
+    private Uri imageUri;
     ImageView mImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,9 @@ public class ShowActivity extends AppCompatActivity {
 
         mImageView = findViewById(R.id.preview_IV);
         String imageUriString = getIntent().getStringExtra("img_uri");
-        Uri imageUri = Uri.parse(imageUriString);
+        imageUri = Uri.parse(imageUriString);
+
+
 
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
@@ -44,5 +47,15 @@ public class ShowActivity extends AppCompatActivity {
                 Toast.makeText(ShowActivity.this,"Language changed to "+lang_tv.getText(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        // Create an explicit Intent for the desired Activity
+        Intent intent = new Intent(this, MainActivity.class);
+        imageUri = null;
+        startActivity(intent);
+
+        // Call finish() to close the current Activity and remove it from the back stack
+        finish();
     }
 }
