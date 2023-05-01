@@ -63,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
         know_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              startActivity(shw_img_intent);
+                if(mImageUri!=null){
+                    startActivity(shw_img_intent);
+                }else{
+                    Toast.makeText(MainActivity.this,"please choose an image to continue",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openCamera();
             }else{
-                Toast.makeText(this,"Camera Permission is required!!",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Camera Permission is required!!",Toast.LENGTH_LONG).show();
             }
         }
     }
