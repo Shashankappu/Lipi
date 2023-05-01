@@ -43,7 +43,7 @@
             android:src="@drawable/manuscript" />
 
         <Button
-            android:id="@+id/know_tv"
+            android:id="@+id/know_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"

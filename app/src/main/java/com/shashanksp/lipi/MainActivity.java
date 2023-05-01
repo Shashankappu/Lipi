@@ -9,36 +9,41 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button gallery_btn, camera_btn;
-    private TextView knowtv_btn;
+    private Button know_btn;
     private ImageView mImageView;
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102 ;
     private static final int GALLERY_REQUEST_CODE = 103 ;
-
+    Intent shw_img_intent,showIntent;
+    private Uri mImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         gallery_btn = findViewById(R.id.gallery_btn);
         camera_btn = findViewById(R.id.camera_btn);
-        knowtv_btn = findViewById(R.id.know_tv);
+        know_btn = findViewById(R.id.know_btn);
         mImageView = findViewById(R.id.photo_IV);
+
 
         gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 askCameraPermission();
             }
         });
-        knowtv_btn.setOnClickListener(new View.OnClickListener() {
+        know_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,ShowActivity.class);
-                startActivity(i);
+              startActivity(shw_img_intent);
             }
         });
 
@@ -89,11 +93,22 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 Bitmap image = (Bitmap) data.getExtras().get("data");
                 mImageView.setImageBitmap(image);
+
+                showIntent = new Intent(MainActivity.this, ShowActivity.class);
+
+                // Pass the captured image URI as an extra
+                Uri imageUri = getImageUri(this, image);
+                showIntent.putExtra("img_uri", imageUri.toString());
+                // Start the next activity
+                startActivity(showIntent);
             }
         }
         else if(requestCode == GALLERY_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
-                mImageView.setImageURI(data.getData());
+                mImageUri = data.getData();
+                mImageView.setImageURI(mImageUri);
+                shw_img_intent = new Intent(MainActivity.this,ShowActivity.class);
+                shw_img_intent.putExtra("img_uri",mImageUri.toString());
             }
         }
     }
@@ -102,5 +117,10 @@ public class MainActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent,CAMERA_REQUEST_CODE);
     }
-
+    private Uri getImageUri(Context context, Bitmap image) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), image, "Title", null);
+        return Uri.parse(path);
+    }
 }
