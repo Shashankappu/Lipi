@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "950755867687",
+    "project_id": "lipiapp-cfb27",
+    "storage_bucket": "lipiapp-cfb27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950755867687:android:dccc8835f6be0a14782202",
+        "android_client_info": {
+          "package_name": "com.shashanksp.lipi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950755867687-ludoddh63nd4s3n18jgqjcvsc57fmbqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shashanksp.lipi",
+            "certificate_hash": "f6d775933cc02f8dfc60ec5e27ccc36d3c647914"
+          }
+        },
+        {
+          "client_id": "950755867687-842n7ccaag1mtljatj841mc0qgr63qen.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8VhKBIOmswLL6_eAr69-c7DtraWB5wTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950755867687-842n7ccaag1mtljatj841mc0qgr63qen.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

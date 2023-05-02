@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/preview_IV">
         <TextView
+            android:id="@+id/result_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/loremipsum"
