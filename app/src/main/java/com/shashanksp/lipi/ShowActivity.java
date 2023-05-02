@@ -54,8 +54,6 @@ public class ShowActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         imageUri = null;
         startActivity(intent);
-
-        // Call finish() to close the current Activity and remove it from the back stack
         finish();
     }
 }

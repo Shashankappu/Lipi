@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(mImageUri!=null){
                     startActivity(shw_img_intent);
+                    finish();
                 }else{
                     Toast.makeText(MainActivity.this,"please choose an image to continue",Toast.LENGTH_LONG).show();
                 }
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 showIntent.putExtra("img_uri", imageUri.toString());
                 // Start the next activity
                 startActivity(showIntent);
+                finish();
             }
         }
         else if(requestCode == GALLERY_REQUEST_CODE){
