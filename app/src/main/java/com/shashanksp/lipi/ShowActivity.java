@@ -1,14 +1,22 @@
 package com.shashanksp.lipi;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+
+import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.mlkit.nl.languageid.LanguageIdentifier;
+import com.google.mlkit.nl.translate.Translator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -18,22 +26,20 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
-import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
+import com.google.mlkit.common.model.DownloadConditions;
+import com.google.mlkit.nl.translate.TranslateLanguage;
+import com.google.mlkit.nl.translate.Translation;
+import com.google.mlkit.nl.translate.TranslatorOptions;
+
 
 import java.io.IOException;
-
-import developers.mobile.abt.FirebaseAbt;
 
 public class ShowActivity extends AppCompatActivity {
     AutoCompleteTextView lang_btn;
     private Uri imageUri;
     ImageView mImageView;
     TextView result_tv;
-    private int from,to = 0;
+    private String from,to;
     String translated_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class ShowActivity extends AppCompatActivity {
         lang_btn = findViewById(R.id.lang_btn);
         result_tv = findViewById(R.id.result_tv);
         result_tv.setText(R.string.loremipsum);
+        //detectLanguage(result_tv.getText().toString());
         String[] lang  = new String[]{"En","Kan","Hin","Ta","Te"};
        // String[] all_lang  = new String[]{"English","Kannada","Hindi","Tamil","Telugu"};
 
@@ -52,7 +59,6 @@ public class ShowActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.preview_IV);
         String imageUriString = getIntent().getStringExtra("img_uri");
         imageUri = Uri.parse(imageUriString);
-
 
 
         try {
@@ -66,8 +72,9 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 to = getLanguageCode(lang_btn.getText().toString());
+                result_tv.setText(R.string.loremipsum);
                 translateText(from,to,result_tv.getText().toString());
-
+//                detectLanguage(result_tv.getText().toString());
                 Toast.makeText(ShowActivity.this,"Language changed to "+lang_btn.getText(),Toast.LENGTH_LONG).show();
             }
         });
@@ -80,29 +87,31 @@ public class ShowActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    public int getLanguageCode(String langcode){
+    public String getLanguageCode(String langcode){
         switch(langcode){
-            case "En" : return FirebaseTranslateLanguage.EN;
+            case "En" : return TranslateLanguage.ENGLISH;
 
-            case "Kan":return FirebaseTranslateLanguage.KN;
+            case "Kan":return TranslateLanguage.KANNADA;
 
-            case "Hin":return FirebaseTranslateLanguage.HI;
+            case "Hin":return TranslateLanguage.HINDI;
 
-            case "Ta":return FirebaseTranslateLanguage.TA;
+            case "Ta":return TranslateLanguage.TAMIL;
 
-            case "Te": return FirebaseTranslateLanguage.TE;
+            case "Te": return TranslateLanguage.TELUGU;
 
-            default: return 0;
+            default: return TranslateLanguage.ENGLISH;
         }
     }
-    private void translateText(int fromcode,int tocode,String prev_text){
-//        translated_text = "Translating...";
-        FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
-                .setSourceLanguage(fromcode)
+    private void translateText(String fromcode, String tocode, String prev_text){
+
+        TranslatorOptions options = new TranslatorOptions.Builder()
+                .setSourceLanguage(TranslateLanguage.ENGLISH)
                 .setTargetLanguage(tocode)
                 .build();
-        FirebaseTranslator translator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
-        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().build();
+        Translator translator =  Translation.getClient(options);
+        DownloadConditions conditions = new DownloadConditions.Builder()
+                .requireWifi()
+                .build();
         translator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -128,4 +137,28 @@ public class ShowActivity extends AppCompatActivity {
         });
     }
 
+//    public void detectLanguage(String text){
+//        LanguageIdentifier languageIdentifier =
+//                LanguageIdentification.getClient();
+//        languageIdentifier.identifyLanguage(text)
+//                .addOnSuccessListener(
+//                        new OnSuccessListener<String>() {
+//                            @Override
+//                            public void onSuccess(@Nullable String languageCode) {
+//                                if (languageCode.equals("und")) {
+//                                    Log.i("detectLang","Can't identify language");
+//                                } else {
+//                                    Log.i("detectLang","langcode"+ languageCode);
+//                                }
+//                            }
+//                        })
+//                .addOnFailureListener(
+//                        new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(ShowActivity.this,"Model Not Loaded Error!",Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+//
+//    }
 }
