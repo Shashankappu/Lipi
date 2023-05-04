@@ -1,8 +1,6 @@
 package com.shashanksp.lipi;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +9,9 @@ import android.net.Uri;
 
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+
 import android.view.View;
 
-import com.google.mlkit.nl.languageid.LanguageIdentification;
-import com.google.mlkit.nl.languageid.LanguageIdentifier;
 import com.google.mlkit.nl.translate.Translator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -136,29 +132,4 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
     }
-
-//    public void detectLanguage(String text){
-//        LanguageIdentifier languageIdentifier =
-//                LanguageIdentification.getClient();
-//        languageIdentifier.identifyLanguage(text)
-//                .addOnSuccessListener(
-//                        new OnSuccessListener<String>() {
-//                            @Override
-//                            public void onSuccess(@Nullable String languageCode) {
-//                                if (languageCode.equals("und")) {
-//                                    Log.i("detectLang","Can't identify language");
-//                                } else {
-//                                    Log.i("detectLang","langcode"+ languageCode);
-//                                }
-//                            }
-//                        })
-//                .addOnFailureListener(
-//                        new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(ShowActivity.this,"Model Not Loaded Error!",Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//
-//    }
 }
