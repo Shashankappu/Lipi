@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
-                android:text="En"
+                android:text="Kan"
                 android:padding="2dp"
                 android:textColor="@color/black" />
 

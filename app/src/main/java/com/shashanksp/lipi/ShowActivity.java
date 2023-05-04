@@ -47,9 +47,9 @@ public class ShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show);
         lang_btn = findViewById(R.id.lang_btn);
         result_tv = findViewById(R.id.result_tv);
-        result_tv.setText(R.string.loremipsum);
+        result_tv.setText(R.string.kannada_lorem);
         //detectLanguage(result_tv.getText().toString());
-        String[] lang  = new String[]{"En","Kan","Hin","Ta","Te"};
+        String[] lang  = new String[]{"Kan","En","Hin","Ta","Te"};
        // String[] all_lang  = new String[]{"English","Kannada","Hindi","Tamil","Telugu"};
 
 
@@ -72,7 +72,7 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 to = getLanguageCode(lang_btn.getText().toString());
-                result_tv.setText(R.string.loremipsum);
+                result_tv.setText(R.string.kannada_lorem);
                 translateText(from,to,result_tv.getText().toString());
 //                detectLanguage(result_tv.getText().toString());
                 Toast.makeText(ShowActivity.this,"Language changed to "+lang_btn.getText(),Toast.LENGTH_LONG).show();
@@ -99,13 +99,13 @@ public class ShowActivity extends AppCompatActivity {
 
             case "Te": return TranslateLanguage.TELUGU;
 
-            default: return TranslateLanguage.ENGLISH;
+            default: return TranslateLanguage.KANNADA;
         }
     }
     private void translateText(String fromcode, String tocode, String prev_text){
 
         TranslatorOptions options = new TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.ENGLISH)
+                .setSourceLanguage(TranslateLanguage.KANNADA)
                 .setTargetLanguage(tocode)
                 .build();
         Translator translator =  Translation.getClient(options);
