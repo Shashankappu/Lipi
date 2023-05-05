@@ -170,7 +170,7 @@ public class ShowActivity extends AppCompatActivity {
             for (Bitmap bitmap : bitmaps) {
                 TessBaseAPI tessBaseAPI = new TessBaseAPI();
                 Log.d("setting image", "Init fail");
-               // tessBaseAPI.init(getFilesDir().getPath(), "kan");
+               //tessBaseAPI.init(getFilesDir().getPath(), "kan");
                 //tessBaseAPI.setPageSegMode(TessBaseAPI.PageSegMode.PSM_AUTO);
                 Log.d("setting image", "Init Working");
                 tessBaseAPI.setImage(bitmap);
@@ -186,8 +186,7 @@ public class ShowActivity extends AppCompatActivity {
         protected void onPostExecute(String extractedText) {
             // Use the extractedText variable as needed
             result_tv.setText(extractedText);
-
-            Log.d("setting image","Text set Successfully");
+            Log.d("setting image","Text set Successfully"+extractedText);
 
         }
 
