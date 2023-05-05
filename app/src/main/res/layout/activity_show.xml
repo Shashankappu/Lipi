@@ -10,7 +10,7 @@
         android:id="@+id/titlelayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/purple"
+        android:background="@drawable/background"
         android:layout_gravity="top">
         <TextView
             android:id="@+id/title"
@@ -31,14 +31,14 @@
 <!--            android:textColor="@color/white"-->
 <!--            android:textSize="24sp" />-->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="4dp">
 
-            <AutoCompleteTextView
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/lang_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +60,8 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:scaleType="centerCrop"
+        android:background="@drawable/background"
+        android:scaleType="fitCenter"
         android:layout_marginBottom="12dp"
         android:src="@color/black" />
     <ScrollView
@@ -74,6 +75,6 @@
             android:text="@string/loremipsum"
             android:textSize="22sp"
             android:layout_margin="12dp"
-            android:textColor="@color/statusbarpurple"/>
+            android:textColor="#0686f9"/>
     </ScrollView>
 </RelativeLayout>

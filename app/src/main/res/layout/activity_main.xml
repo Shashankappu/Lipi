@@ -7,27 +7,9 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/titlelayout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/purple"
-        android:layout_gravity="top"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/contentlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titlelayout"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
@@ -37,10 +19,10 @@
         <ImageView
             android:id="@+id/photo_IV"
             android:layout_width="350dp"
-            android:layout_height="220dp"
+            android:layout_height="330dp"
             android:layout_gravity="center"
             android:layout_margin="40dp"
-            android:src="@drawable/manuscript" />
+            android:src="@drawable/logoact" />
 
         <Button
             android:id="@+id/know_btn"
@@ -49,43 +31,55 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="15dp"
             android:text="Know what is it?"
             android:textAlignment="center"
+            android:textAllCaps="false"
+            android:background="@drawable/knowmorebtn"
             android:textColor="@color/white"
-            android:background="@drawable/custombutton"
             android:textSize="30sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:layout_margin="4dp"
-        android:weightSum="2"
-        android:layout_marginBottom="14dp"
         android:layout_below="@id/contentlayout"
-        android:orientation="horizontal">
+        android:layout_margin="4dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
         <Button
             android:id="@+id/gallery_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Gallery"
-            android:textColor="@color/white"
-            android:textSize="30sp"
+            android:layout_weight="1"
+            android:background="@drawable/custombutton"
+            android:drawableRight="@drawable/drawable_gallery"
+            android:elevation="8dp"
             android:fontFamily="sans-serif"
-            android:background="@drawable/custombutton"/>
+            android:padding="5dp"
+            android:text="Gallery"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
         <Button
             android:id="@+id/camera_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Camera"
+            android:layout_weight="1"
+            android:background="@drawable/custombutton"
+            android:drawableRight="@drawable/drawable_camera"
             android:fontFamily="sans-serif"
+            android:padding="5dp"
+            android:text="Camera"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:background="@drawable/custombutton" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 

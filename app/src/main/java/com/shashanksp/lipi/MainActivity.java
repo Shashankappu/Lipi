@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(shw_img_intent);
                     finish();
                 }else{
-                    Toast.makeText(MainActivity.this,"please choose an image to continue",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Please choose an image to continue",Toast.LENGTH_LONG).show();
                 }
             }
         });
