@@ -15,8 +15,8 @@ import android.view.View;
 import com.google.mlkit.nl.translate.Translator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,26 +31,45 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 import java.io.IOException;
 
 public class ShowActivity extends AppCompatActivity {
-    AutoCompleteTextView lang_btn;
     private Uri imageUri;
     ImageView mImageView;
     TextView result_tv;
-    private String from,to;
+    Spinner langBtn;
+    private String to;
     String translated_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
-        lang_btn = findViewById(R.id.lang_btn);
+        //lang_btn = findViewById(R.id.language_btn);
         result_tv = findViewById(R.id.result_tv);
+        langBtn =  findViewById(R.id.language_btn);
         result_tv.setText(R.string.kannada_lorem);
         //detectLanguage(result_tv.getText().toString());
         String[] lang  = new String[]{"Kan","En","Hin","Ta","Te"};
-       // String[] all_lang  = new String[]{"English","Kannada","Hindi","Tamil","Telugu"};
 
 
-        ArrayAdapter<String> lang_adapter = new ArrayAdapter<>(this,R.layout.customdropdown,lang);
-        lang_btn.setAdapter(lang_adapter);
+        // for Spinner implementation
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,lang);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        langBtn.setAdapter(adapter);
+
+        //Spinner Handling Clicks
+        langBtn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Handle item selection
+                String selectedItem = (String) parent.getItemAtPosition(position);
+                to = getLanguageCode(selectedItem);
+                result_tv.setText(R.string.kannada_lorem);
+                translateText(to,result_tv.getText().toString());
+                Toast.makeText(ShowActivity.this,"Language changed to "+to,Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //Do nothing
+            }
+        });
 
         mImageView = findViewById(R.id.preview_IV);
         String imageUriString = getIntent().getStringExtra("img_uri");
@@ -63,26 +82,9 @@ public class ShowActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        from = getLanguageCode(lang_btn.getText().toString());
-        lang_btn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                to = getLanguageCode(lang_btn.getText().toString());
-                result_tv.setText(R.string.kannada_lorem);
-                translateText(from,to,result_tv.getText().toString());
-//                detectLanguage(result_tv.getText().toString());
-                Toast.makeText(ShowActivity.this,"Language changed to "+lang_btn.getText(),Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-    @Override
-    public void onBackPressed() {
-        // Create an explicit Intent for the desired Activity
-        Intent intent = new Intent(this, MainActivity.class);
-        imageUri = null;
-        startActivity(intent);
-        finish();
-    }
+   }
+
+    //To get the language Code for Translation
     public String getLanguageCode(String langcode){
         switch(langcode){
             case "En" : return TranslateLanguage.ENGLISH;
@@ -98,7 +100,9 @@ public class ShowActivity extends AppCompatActivity {
             default: return TranslateLanguage.KANNADA;
         }
     }
-    private void translateText(String fromcode, String tocode, String prev_text){
+
+    //Translating the Text to any Languages
+    private void translateText(String tocode, String prev_text){
 
         TranslatorOptions options = new TranslatorOptions.Builder()
                 .setSourceLanguage(TranslateLanguage.KANNADA)
@@ -131,5 +135,15 @@ public class ShowActivity extends AppCompatActivity {
                 Toast.makeText(ShowActivity.this,"Failed to Download Language Model",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // for handling Back Press on the activity
+    @Override
+    public void onBackPressed() {
+        // Create an explicit Intent for the desired Activity
+        Intent intent = new Intent(this, MainActivity.class);
+        imageUri = null;
+        startActivity(intent);
+        finish();
     }
 }

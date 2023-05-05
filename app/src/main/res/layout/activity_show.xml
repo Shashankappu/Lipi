@@ -22,34 +22,12 @@
             android:layout_marginStart="10dp"
             />
 
-<!--        <Button-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="En"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:padding="2dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="24sp" />-->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
+        <Spinner
+            android:id="@+id/language_btn"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="4dp">
-
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/lang_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="none"
-                android:text="Kan"
-                android:padding="2dp"
-                android:textColor="@color/black" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <ImageView
