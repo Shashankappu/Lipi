@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.Task;
 import com.google.mlkit.nl.translate.Translator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,11 @@ import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 import com.google.mlkit.nl.translate.Translation;
 import com.google.mlkit.nl.translate.TranslatorOptions;
-
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 
 import java.io.IOException;
@@ -40,13 +45,15 @@ public class ShowActivity extends AppCompatActivity {
     private String to;
     Bitmap bitmap;
     String translated_text;
+    InputImage inputImage;
+    TextRecognizer textRecognizer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         result_tv = findViewById(R.id.result_tv);
         langBtn =  findViewById(R.id.language_btn);
-        result_tv.setText(R.string.kannada_lorem);
+//        result_tv.setText(R.string.kannada_lorem);
         String[] lang  = new String[]{"Kan","En","Hin","Ta","Te"};
 
         //Getting image from Home Actvity
@@ -54,18 +61,19 @@ public class ShowActivity extends AppCompatActivity {
         String imageUriString = getIntent().getStringExtra("img_uri");
         imageUri = Uri.parse(imageUriString);
 
+        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+            inputImage = InputImage.fromFilePath(this,imageUri);
             Log.d("setting image","Image set Successfully");
             mImageView.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        //getting text from image
-//        getTextFromImage(bitmap);
-//        Toast.makeText(this,result_tv.getText(),Toast.LENGTH_LONG).show();
-
+        //getting text from image
+        getTextFromImage(inputImage);
 
 
 
@@ -81,7 +89,6 @@ public class ShowActivity extends AppCompatActivity {
                 // Handle item selection
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 to = getLanguageCode(selectedItem);
-                result_tv.setText(R.string.kannada_lorem);
                 translateText(to,result_tv.getText().toString());
                 Toast.makeText(ShowActivity.this,"Language changed to "+to,Toast.LENGTH_LONG).show();
             }
@@ -92,6 +99,23 @@ public class ShowActivity extends AppCompatActivity {
         });
 
    }
+
+    private void getTextFromImage(InputImage inputImage) {
+        Task<Text> extracted_text = textRecognizer.process(inputImage)
+                .addOnSuccessListener(new OnSuccessListener<Text>() {
+                    @Override
+                    public void onSuccess(Text text) {
+                        String recognizeText = text.getText();
+                        result_tv.setText(recognizeText);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ShowActivity.this,"Recognition Error!" + e,Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 
     //To get the language Code for Translation
     public String getLanguageCode(String langcode){
@@ -114,7 +138,7 @@ public class ShowActivity extends AppCompatActivity {
     private void translateText(String tocode, String prev_text){
 
         TranslatorOptions options = new TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.KANNADA)
+                .setSourceLanguage(TranslateLanguage.ENGLISH)
                 .setTargetLanguage(tocode)
                 .build();
         Translator translator =  Translation.getClient(options);

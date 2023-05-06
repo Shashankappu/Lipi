@@ -50,7 +50,6 @@
             android:id="@+id/result_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/loremipsum"
             android:textSize="22sp"
             android:layout_margin="12dp"
             android:textColor="#0686f9"/>
