@@ -1,6 +1,7 @@
 package com.shashanksp.lipi;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -35,7 +36,6 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions;
 
 
-
 import java.io.IOException;
 
 public class ShowActivity extends AppCompatActivity {
@@ -43,31 +43,31 @@ public class ShowActivity extends AppCompatActivity {
     ImageView mImageView;
     TextView result_tv;
     Spinner langBtn;
-    private String to;
+    private String to,from;
     Bitmap bitmap;
     String translated_text;
     InputImage inputImage;
     TextRecognizer textRecognizer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         result_tv = findViewById(R.id.result_tv);
-        langBtn =  findViewById(R.id.language_btn);
-        String[] lang  = new String[]{"Hin","En","Kan","Ta","Te"};
+        langBtn = findViewById(R.id.language_btn);
+        String[] lang = new String[]{"Hin","En","Kan","Ta","Te"};
 
-        //Getting image from Home Actvity
+        //Getting image from Home Activity
         mImageView = findViewById(R.id.preview_IV);
         String imageUriString = getIntent().getStringExtra("img_uri");
         imageUri = Uri.parse(imageUriString);
 
         textRecognizer = TextRecognition.getClient(new DevanagariTextRecognizerOptions.Builder().build());
 
-
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-            inputImage = InputImage.fromFilePath(this,imageUri);
-            Log.d("setting image","Image set Successfully");
+            inputImage = InputImage.fromFilePath(this, imageUri);
+            Log.d("setting image", "Image set Successfully");
             mImageView.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,12 +76,11 @@ public class ShowActivity extends AppCompatActivity {
         //getting text from image
         getTextFromImage(inputImage);
 
-
-
         // for Spinner implementation
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,lang);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         langBtn.setAdapter(adapter);
+
 
         //Spinner Handling Clicks
         langBtn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -89,17 +88,19 @@ public class ShowActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Handle item selection
                 String selectedItem = (String) parent.getItemAtPosition(position);
+                String cur_text = result_tv.getText().toString();
                 to = getLanguageCode(selectedItem);
-                translateText(to,result_tv.getText().toString());
-                Toast.makeText(ShowActivity.this,"Language changed to "+to,Toast.LENGTH_LONG).show();
+                translateText(to,cur_text);
+                Toast.makeText(ShowActivity.this, "Language changed to " + to, Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 //Do nothing
             }
         });
 
-   }
+    }
 
     private void getTextFromImage(InputImage inputImage) {
         Task<Text> extracted_text = textRecognizer.process(inputImage)
@@ -112,44 +113,49 @@ public class ShowActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ShowActivity.this,"Recognition Error!" + e,Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShowActivity.this, "Recognition Error!" + e, Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
-
     //To get the language Code for Translation
-    public String getLanguageCode(String langcode){
-        switch(langcode){
-            case "En" : return TranslateLanguage.ENGLISH;
+    public String getLanguageCode(String langcode) {
+        switch (langcode) {
+            case "En":
+                return TranslateLanguage.ENGLISH;
 
-            case "Kan":return TranslateLanguage.KANNADA;
+            case "Kan":
+                return TranslateLanguage.KANNADA;
 
-            case "Hin":return TranslateLanguage.HINDI;
+            case "Hin":
+                return TranslateLanguage.HINDI;
 
-            case "Ta":return TranslateLanguage.TAMIL;
+            case "Ta":
+                return TranslateLanguage.TAMIL;
 
-            case "Te": return TranslateLanguage.TELUGU;
+            case "Te":
+                return TranslateLanguage.TELUGU;
 
-            default: return null;
+            default:
+                return TranslateLanguage.ENGLISH;
         }
     }
 
     //Translating the Text to any Languages
-    private void translateText(String tocode, String prev_text){
-
+    private void translateText(String tocode, String cur_text) {
         TranslatorOptions options = new TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.ENGLISH)
+                .setSourceLanguage(TranslateLanguage.HINDI)
                 .setTargetLanguage(tocode)
                 .build();
-        Translator translator =  Translation.getClient(options);
+        Translator translator = Translation.getClient(options);
+        getLifecycle().addObserver(translator);
         DownloadConditions conditions = new DownloadConditions.Builder()
                 .requireWifi()
                 .build();
         translator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                translator.translate(prev_text).addOnSuccessListener(new OnSuccessListener<String>() {
+                translator.translate(cur_text).addOnSuccessListener(new OnSuccessListener<String>() {
                     @Override
                     public void onSuccess(String s) {
                         translated_text = s;
@@ -158,15 +164,14 @@ public class ShowActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ShowActivity.this,"Translation Error!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShowActivity.this, "Translation Error!", Toast.LENGTH_LONG).show();
                     }
-                }
-                );
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ShowActivity.this,"Failed to Download Language Model",Toast.LENGTH_LONG).show();
+                Toast.makeText(ShowActivity.this, "Failed to Download Language Model", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -181,6 +186,28 @@ public class ShowActivity extends AppCompatActivity {
         finish();
     }
 
+//    public void getLanguage(String cur_text) {
+//
+//        LanguageIdentifier languageIdentifier = LanguageIdentification.getClient();
+//        languageIdentifier.identifyPossibleLanguages(cur_text)
+//                .addOnSuccessListener(new OnSuccessListener<List<IdentifiedLanguage>>() {
+//                    @Override
+//                    public void onSuccess(List<IdentifiedLanguage> identifiedLanguages) {
+//                        for (IdentifiedLanguage identifiedLanguage : identifiedLanguages) {
+//                            String language = identifiedLanguage.getLanguageTag();
+//                            float confidence = identifiedLanguage.getConfidence();
+//                            Log.i("lang detection", language + " (" + confidence + ")");
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(
+//                        new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//
+//                            }
+//                        });
+//        }
 
 
 }
