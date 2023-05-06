@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
@@ -28,7 +27,7 @@ import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 import com.google.mlkit.nl.translate.Translation;
 import com.google.mlkit.nl.translate.TranslatorOptions;
-import com.googlecode.tesseract.android.TessBaseAPI;
+
 
 
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class ShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show);
         result_tv = findViewById(R.id.result_tv);
         langBtn =  findViewById(R.id.language_btn);
-        //result_tv.setText(R.string.kannada_lorem);
+        result_tv.setText(R.string.kannada_lorem);
         String[] lang  = new String[]{"Kan","En","Hin","Ta","Te"};
 
         //Getting image from Home Actvity
@@ -63,9 +62,9 @@ public class ShowActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //getting text from image
-        getTextFromImage(bitmap);
-        Toast.makeText(this,result_tv.getText(),Toast.LENGTH_LONG).show();
+//        //getting text from image
+//        getTextFromImage(bitmap);
+//        Toast.makeText(this,result_tv.getText(),Toast.LENGTH_LONG).show();
 
 
 
@@ -82,7 +81,7 @@ public class ShowActivity extends AppCompatActivity {
                 // Handle item selection
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 to = getLanguageCode(selectedItem);
-//                result_tv.setText(R.string.kannada_lorem);
+                result_tv.setText(R.string.kannada_lorem);
                 translateText(to,result_tv.getText().toString());
                 Toast.makeText(ShowActivity.this,"Language changed to "+to,Toast.LENGTH_LONG).show();
             }
@@ -157,43 +156,6 @@ public class ShowActivity extends AppCompatActivity {
         finish();
     }
 
-    public void getTextFromImage(Bitmap bitmap){
-        OcrTask ocrTask = new OcrTask();
-        String extracted_text = ocrTask.doInBackground(bitmap);
-        ocrTask.onPostExecute(extracted_text);
-    }
 
-    public class OcrTask extends AsyncTask<Bitmap, Void, String> {
-        @Override
-        protected String doInBackground(Bitmap... bitmaps) {
-            String extractedText="hello";
-            for (Bitmap bitmap : bitmaps) {
-                TessBaseAPI tessBaseAPI = new TessBaseAPI();
-                Log.d("setting image", "Init fail");
-               //tessBaseAPI.init(getFilesDir().getPath(), "kan");
-                //tessBaseAPI.setPageSegMode(TessBaseAPI.PageSegMode.PSM_AUTO);
-                Log.d("setting image", "Init Working");
-                tessBaseAPI.setImage(bitmap);
-                extractedText = tessBaseAPI.getUTF8Text();
-                tessBaseAPI.end();
-
-                //Log.i("setting image",extractedText);
-            }
-            return extractedText;
-        }
-
-        @Override
-        protected void onPostExecute(String extractedText) {
-            // Use the extractedText variable as needed
-            result_tv.setText(extractedText);
-            Log.d("setting image","Text set Successfully"+extractedText);
-
-        }
-
-        @Override
-        protected void onCancelled() {
-            // Handle task cancellation
-        }
-    }
 
 }
