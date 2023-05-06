@@ -32,7 +32,8 @@ import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions;
+
 
 
 import java.io.IOException;
@@ -53,15 +54,15 @@ public class ShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show);
         result_tv = findViewById(R.id.result_tv);
         langBtn =  findViewById(R.id.language_btn);
-//        result_tv.setText(R.string.kannada_lorem);
-        String[] lang  = new String[]{"En","Kan","Hin","Ta","Te"};
+        String[] lang  = new String[]{"Hin","En","Kan","Ta","Te"};
 
         //Getting image from Home Actvity
         mImageView = findViewById(R.id.preview_IV);
         String imageUriString = getIntent().getStringExtra("img_uri");
         imageUri = Uri.parse(imageUriString);
 
-        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+        textRecognizer = TextRecognition.getClient(new DevanagariTextRecognizerOptions.Builder().build());
+
 
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
