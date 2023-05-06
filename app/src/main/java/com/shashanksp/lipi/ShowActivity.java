@@ -54,7 +54,7 @@ public class ShowActivity extends AppCompatActivity {
         result_tv = findViewById(R.id.result_tv);
         langBtn =  findViewById(R.id.language_btn);
 //        result_tv.setText(R.string.kannada_lorem);
-        String[] lang  = new String[]{"Kan","En","Hin","Ta","Te"};
+        String[] lang  = new String[]{"En","Kan","Hin","Ta","Te"};
 
         //Getting image from Home Actvity
         mImageView = findViewById(R.id.preview_IV);
@@ -130,7 +130,7 @@ public class ShowActivity extends AppCompatActivity {
 
             case "Te": return TranslateLanguage.TELUGU;
 
-            default: return TranslateLanguage.KANNADA;
+            default: return null;
         }
     }
 
