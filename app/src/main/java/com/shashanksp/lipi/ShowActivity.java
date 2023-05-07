@@ -81,7 +81,7 @@ public class ShowActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         langBtn.setAdapter(adapter);
 
-
+        from = TranslateLanguage.HINDI;
         //Spinner Handling Clicks
         langBtn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -90,7 +90,8 @@ public class ShowActivity extends AppCompatActivity {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 String cur_text = result_tv.getText().toString();
                 to = getLanguageCode(selectedItem);
-                translateText(to,cur_text);
+                translateText(from,to,cur_text);
+                from = to;
                 Toast.makeText(ShowActivity.this, "Language changed to " + to, Toast.LENGTH_LONG).show();
             }
 
@@ -142,9 +143,9 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     //Translating the Text to any Languages
-    private void translateText(String tocode, String cur_text) {
+    private void translateText(String fromcode,String tocode, String cur_text) {
         TranslatorOptions options = new TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.HINDI)
+                .setSourceLanguage(fromcode)
                 .setTargetLanguage(tocode)
                 .build();
         Translator translator = Translation.getClient(options);
