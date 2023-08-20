@@ -28,7 +28,7 @@ import java.io.ByteArrayOutputStream;
 public class MainActivity extends AppCompatActivity {
 
     private Button gallery_btn, camera_btn;
-    private Button know_btn;
+
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102 ;
     private static final int GALLERY_REQUEST_CODE = 103 ;
@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         gallery_btn = findViewById(R.id.gallery_btn);
         camera_btn = findViewById(R.id.camera_btn);
-        know_btn = findViewById(R.id.know_btn);
-        //mImageView = findViewById(R.id.photo_IV);
+//        know_btn = findViewById(R.id.know_btn);
+//        //mImageView = findViewById(R.id.photo_IV);
 
 
         gallery_btn.setOnClickListener(new View.OnClickListener() {
@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        know_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Please choose any one of the option below",Toast.LENGTH_LONG).show();
-            }
-        });
+//        know_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(MainActivity.this,"Please choose any one of the option below",Toast.LENGTH_LONG).show();
+//            }
+//        });
 
     }
     private void askCameraPermission() {

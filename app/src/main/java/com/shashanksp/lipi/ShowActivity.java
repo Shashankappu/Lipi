@@ -55,7 +55,7 @@ public class ShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show);
         result_tv = findViewById(R.id.result_tv);
         langBtn = findViewById(R.id.language_btn);
-        String[] lang = new String[]{"Hin","En","Kan","Ta","Te"};
+        String[] lang = new String[]{"English","Hindi","Kannada","Tamil","Telugu"};
 
         //Getting image from Home Activity
         mImageView = findViewById(R.id.preview_IV);
@@ -122,19 +122,19 @@ public class ShowActivity extends AppCompatActivity {
     //To get the language Code for Translation
     public String getLanguageCode(String langcode) {
         switch (langcode) {
-            case "En":
+            case "English":
                 return TranslateLanguage.ENGLISH;
 
-            case "Kan":
+            case "Kannada":
                 return TranslateLanguage.KANNADA;
 
-            case "Hin":
+            case "Hindi":
                 return TranslateLanguage.HINDI;
 
-            case "Ta":
+            case "Tamil":
                 return TranslateLanguage.TAMIL;
 
-            case "Te":
+            case "Telugu":
                 return TranslateLanguage.TELUGU;
 
             default:

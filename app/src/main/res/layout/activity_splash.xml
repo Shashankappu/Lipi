@@ -7,12 +7,35 @@
     android:background="@color/white"
     tools:context=".splashActivity">
 
-<com.airbnb.lottie.LottieAnimationView
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lipi"
+        android:textSize="38sp"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/lobsterbold"
+        android:layout_alignParentTop="true"
+        android:gravity="center"/>
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="650dp"
         app:lottie_rawRes="@raw/splashlottie"
+        android:layout_below="@id/title"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Loading..."
+        android:layout_below="@id/animationView"
+        android:textSize="24sp"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/lobstermedium"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"/>
 
 </RelativeLayout>

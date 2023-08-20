@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/contentlayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
@@ -17,48 +17,59 @@
         android:layout_marginBottom="4dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/know_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/knowmorebtn"
+            android:fontFamily="@font/lobsterbold"
+            android:text="Lipi"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="38sp" />
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_gravity="center"
-            android:layout_height="300dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp"
-            app:lottie_rawRes="@raw/homelottie"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/homelottie" />
 
-        <Button
-            android:id="@+id/know_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-           android:layout_margin="30dp"
+        <TextView
+            android:id="@+id/ins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Choose how to upload"
-            android:padding="10dp"
-            android:fontFamily="sans-serif"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:elevation="5dp"
             android:background="@drawable/knowmorebtn"
+            android:fontFamily="@font/lobsterbold"
+            android:text="choose an image to upload 👇"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="40dp"
+            android:textAlignment="center"
             android:textColor="@color/blue"
-            android:textSize="24sp" />
+            android:textSize="32sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btnLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/contentlayout"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="bottom"
+        android:gravity="top"
         android:orientation="horizontal"
+        android:padding="10dp"
         android:weightSum="2">
 
         <Button
@@ -68,14 +79,16 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/custombutton"
+            android:backgroundTint="@color/white"
             android:drawableRight="@drawable/drawable_gallery"
+            android:drawableTint="@color/blue"
             android:elevation="8dp"
             android:fontFamily="sans-serif"
             android:padding="5dp"
-            android:text="Gallery"
             android:paddingEnd="15dp"
+            android:text="Gallery"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/blue"
             android:textSize="22sp" />
 
         <Button
@@ -86,10 +99,11 @@
             android:layout_weight="1"
             android:background="@drawable/custombutton"
             android:drawableRight="@drawable/drawable_camera"
+            android:elevation="8dp"
             android:fontFamily="sans-serif"
             android:padding="5dp"
-            android:text="Camera"
             android:paddingEnd="15dp"
+            android:text="Camera"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="22sp" />
