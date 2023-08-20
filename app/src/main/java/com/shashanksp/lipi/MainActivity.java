@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button gallery_btn, camera_btn;
     private Button know_btn;
-    private ImageView mImageView;
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102 ;
     private static final int GALLERY_REQUEST_CODE = 103 ;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         gallery_btn = findViewById(R.id.gallery_btn);
         camera_btn = findViewById(R.id.camera_btn);
         know_btn = findViewById(R.id.know_btn);
-        mImageView = findViewById(R.id.photo_IV);
+        //mImageView = findViewById(R.id.photo_IV);
 
 
         gallery_btn.setOnClickListener(new View.OnClickListener() {
@@ -60,15 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 askCameraPermission();
             }
         });
+
         know_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mImageUri!=null){
-                    startActivity(shw_img_intent);
-                    finish();
-                }else{
-                    Toast.makeText(MainActivity.this,"Please choose an image to continue",Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(MainActivity.this,"Please choose any one of the option below",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -97,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == CAMERA_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
                 Bitmap image = (Bitmap) data.getExtras().get("data");
-                mImageView.setImageBitmap(image);
 
                 showIntent = new Intent(MainActivity.this, ShowActivity.class);
 
@@ -112,9 +106,14 @@ public class MainActivity extends AppCompatActivity {
         else if(requestCode == GALLERY_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
                 mImageUri = data.getData();
-                mImageView.setImageURI(mImageUri);
                 shw_img_intent = new Intent(MainActivity.this,ShowActivity.class);
                 shw_img_intent.putExtra("img_uri",mImageUri.toString());
+                if(mImageUri!=null){
+                    startActivity(shw_img_intent);
+                    finish();
+                }else{
+                    Toast.makeText(MainActivity.this,"Please choose an image to continue",Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

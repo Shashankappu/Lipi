@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -16,33 +17,41 @@
         android:layout_marginBottom="4dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/photo_IV"
-            android:layout_width="350dp"
-            android:layout_height="330dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="40dp"
-            android:src="@drawable/logoact" />
+            android:layout_height="300dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            app:lottie_rawRes="@raw/homelottie"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
 
         <Button
             android:id="@+id/know_btn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="15dp"
-            android:text="Know what is it?"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+           android:layout_margin="30dp"
+            android:layout_gravity="center"
+            android:text="Choose how to upload"
+            android:padding="10dp"
+            android:fontFamily="sans-serif"
             android:textAlignment="center"
             android:textAllCaps="false"
+            android:elevation="5dp"
             android:background="@drawable/knowmorebtn"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textColor="@color/blue"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnLL"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_below="@id/contentlayout"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
@@ -64,9 +73,10 @@
             android:fontFamily="sans-serif"
             android:padding="5dp"
             android:text="Gallery"
+            android:paddingEnd="15dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/camera_btn"
@@ -79,9 +89,10 @@
             android:fontFamily="sans-serif"
             android:padding="5dp"
             android:text="Camera"
+            android:paddingEnd="15dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 

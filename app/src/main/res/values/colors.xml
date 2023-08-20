@@ -4,7 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#8C52FF</color>
     <color name="statusbarpurple">#613AAF</color>
+    <color name="blue">#06c1f9</color>
     <color name="yellow">#F5e801</color>
-    <color name="pink">#F75bd4</color>
+    <color name="pink">#FF00F6</color>
 
 </resources>
