@@ -41,6 +41,13 @@ Once you have installed Lipi on your device, follow these steps to use the app:
 
 Please note that the accuracy of text extraction and translation may vary based on factors such as image quality and the complexity of the text. The app provides an estimate and might require user validation for critical applications.
 
+## Working
+
+https://github.com/Shashankappu/Lipi/assets/50190738/816aff1f-515b-46e7-abae-dfe77a611cd2
+
+
+
+
 ## Contributing
 
 Contributions to Lipi are welcome! If you encounter issues or have suggestions for improvements, feel free to submit a pull request or open an issue on the project's GitHub repository.
