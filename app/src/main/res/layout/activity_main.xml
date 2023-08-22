@@ -48,13 +48,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/knowmorebtn"
-            android:fontFamily="@font/lobsterbold"
+            android:fontFamily="@font/playfairitalic"
             android:text="choose an image to upload 👇"
             android:layout_marginStart="5dp"
             android:layout_marginTop="40dp"
             android:textAlignment="center"
             android:textColor="@color/blue"
-            android:textSize="32sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 

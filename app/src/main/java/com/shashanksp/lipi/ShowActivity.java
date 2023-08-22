@@ -19,6 +19,7 @@ import com.google.mlkit.nl.translate.Translator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,7 +110,10 @@ public class ShowActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Text text) {
                         String recognizeText = text.getText();
-                        result_tv.setText(recognizeText);
+                        if(recognizeText.isEmpty())
+                            result_tv.setText("Nothing to Extract");
+                        else
+                            result_tv.setText(recognizeText);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -160,7 +164,10 @@ public class ShowActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String s) {
                         translated_text = s;
-                        result_tv.setText(translated_text);
+                        if(translated_text.equals("Nothing to Extract"))
+                            result_tv.setText("Nothing to Extract");
+                        else
+                            result_tv.setText(translated_text);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
